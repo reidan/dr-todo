@@ -8,8 +8,30 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 
 // configuration =================
 
-mongoose.connect('mongodb://heroku_j67qztrj:63j4sqdkp855bupcejtnuao1ur@ds035300.mongolab.com:35300/heroku_j67qztrj');     
+// mongoose.connect('mongodb://heroku_j67qztrj:63j4sqdkp855bupcejtnuao1ur@ds035300.mongolab.com:35300/heroku_j67qztrj');     
 // connect to mongoDB database on heroku mongolab
+
+// Here we find an appropriate database to connect to, defaulting to
+    // localhost if we don't find one.
+    var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/HelloMongoose';
+
+    // The http server will listen to an appropriate port, or default to
+    // port 5000.
+    // var theport = process.env.PORT || 5000;
+
+    // Makes connection asynchronously.  Mongoose will queue up database
+    // operations and release them when the connection is complete.
+    mongoose.connect(uristring, function (err, res) {
+      if (err) {
+      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+      } else {
+      console.log ('Succeeded connected to: ' + uristring);
+      }
+    });
+
 
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
