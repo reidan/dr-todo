@@ -23,6 +23,11 @@ app.use(methodOverride());
         text : String
     });
 
+
+// listen (start app with node server.js) ======================================
+app.listen( process.env.PORT || 8080);
+console.log("App listening on port 8080 || " + process.env.PORT);
+
 // routes ======================================================================
 
     // api ---------------------------------------------------------------------
@@ -82,8 +87,3 @@ app.use(methodOverride());
     app.get('*', function(req, res) {
         res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
-
-
-// listen (start app with node server.js) ======================================
-app.listen( process.env.PORT || 8080);
-console.log("App listening on port 8080 || " + process.env.PORT);
