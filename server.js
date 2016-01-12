@@ -42,7 +42,7 @@ app.use(methodOverride());
 
     // create todo and send back all todos after creation
     app.post('/api/todos', function(req, res) {
-
+        console.log( 'text:: ' + req.body.text );
         // create a todo, information comes from AJAX request from Angular
         Todo.create({
             text : req.body.text,
@@ -82,7 +82,7 @@ app.use(methodOverride());
     app.get('*', function(req, res) {
         res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
-    
+
 // listen (start app with node server.js) ======================================
 app.listen( process.env.PORT || 8080);
 console.log("App listening on port 8080 || " + process.env.PORT);
